@@ -1,0 +1,7 @@
+venv/
+Driver Drowsiness Data/
+NTHU-DDD/
+StateFarm Dataset/
+YawDD/
+__pycache__/
+*.pyc
