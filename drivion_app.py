@@ -29,3 +29,15 @@ mp_face_detection = mp.solutions.face_detection
 face_detector = mp_face_detection.FaceDetection(min_detection_confidence=0.6)
 
 current_state = {"pred": 0, "text": "Safe Driving"}
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+@app.route('/monitor')
+def monitor():
+    return render_template('monitor.html')
+
+@app.route('/status_api')
+def status_api():
+    return jsonify(current_state)
