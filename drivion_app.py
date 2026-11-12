@@ -41,3 +41,47 @@ def monitor():
 @app.route('/status_api')
 def status_api():
     return jsonify(current_state)
+
+import os
+from dotenv import load_dotenv
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+
+# Load variables from the hidden .env file
+load_dotenv()
+
+@app.route('/submit_feedback', methods=['POST'])
+def submit_feedback():
+    name = request.form.get('name')
+    sender_email = request.form.get('email')
+    message_body = request.form.get('message')
+    
+    receiver_email = "ishikachadha098@gmail.com"
+    smtp_server = "smtp.gmail.com"
+    smtp_port = 587
+    
+    # Securely fetch credentials (hidden from GitHub)
+    my_gmail = os.getenv("MAIL_USERNAME")
+    app_password = os.getenv("MAIL_PASSWORD")
+    
+    try:
+        msg = MIMEMultipart()
+        msg['From'] = my_gmail
+        msg['To'] = receiver_email
+        msg['Subject'] = f"New Feedback from {name} via Drivion"
+        
+        email_content = f"Name: {name}\nEmail: {sender_email}\n\nMessage:\n{message_body}"
+        msg.attach(MIMEText(email_content, 'plain'))
+        
+        server = smtplib.SMTP(smtp_server, smtp_port)
+        server.starttls()
+        server.login(my_gmail, app_password)
+        server.sendmail(my_gmail, receiver_email, msg.as_string())
+        server.quit()
+        
+        flash('Thank you! Your feedback has been successfully emailed.')
+    except Exception as e:
+        flash('Feedback received, but email delivery failed.')
+        
+    return redirect(url_for('index') + '#feedback')
