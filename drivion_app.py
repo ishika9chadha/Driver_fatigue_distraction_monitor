@@ -104,3 +104,51 @@ def gen_frames():
         pred = 0
 
         results = face_detector.process(rgb)
+
+        if results.detections and model is not None:
+            for detection in results.detections:
+                bbox = detection.location_data.relative_bounding_box
+                x = int(bbox.xmin * w)
+                y = int(bbox.ymin * h)
+                bw = int(bbox.width * w)
+                bh = int(bbox.height * h)
+
+                x1 = max(0, x - 20)
+                y1 = max(0, y - 20)
+                x2 = min(w, x + bw + 20)
+                y2 = min(h, y + bh + 20)
+
+                face_crop = frame[y1:y2, x1:x2]
+
+                if face_crop.size > 0:
+                    face_resized = cv2.resize(face_crop, (64, 64))
+                    features = face_resized.flatten().reshape(1, -1) / 255.0
+
+                    try:
+                        pred = model.predict(features)[0]
+                    except Exception:
+                        pred = 0
+
+
+                    if bw < bh * 0.75:
+                        pred = 2  
+
+                    window_states.append(pred)
+                    if len(window_states) > 3:
+                        window_states.pop(0)
+                    smoothed_pred = max(set(window_states), key=window_states.count)
+
+                    if smoothed_pred == 1:
+                        status_text = "DROWSY WARNING!"
+                        color = (0, 0, 255) 
+                        pred = 1
+                    elif smoothed_pred == 2:
+                        status_text = "DISTRACTION DETECTED!"
+                        color = (0, 140, 255) 
+                        pred = 2
+                    else:
+                        status_text = "Safe Driving"
+                        color = (0, 255, 0) 
+                        pred = 0
+
+                    cv2.rectangle(frame, (x1, y1), (x2, y2), color, 2)
