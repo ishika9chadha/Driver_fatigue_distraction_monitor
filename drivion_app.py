@@ -85,3 +85,22 @@ def submit_feedback():
         flash('Feedback received, but email delivery failed.')
         
     return redirect(url_for('index') + '#feedback')
+
+def gen_frames():
+    global current_state
+    cap = cv2.VideoCapture(0)
+    window_states = []
+
+    while cap.isOpened():
+        success, frame = cap.read()
+        if not success:
+            break
+
+        h, w, _ = frame.shape
+        rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+
+        status_text = "Safe Driving"
+        color = (0, 255, 0) 
+        pred = 0
+
+        results = face_detector.process(rgb)
