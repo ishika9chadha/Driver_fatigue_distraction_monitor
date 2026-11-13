@@ -152,3 +152,19 @@ def gen_frames():
                         pred = 0
 
                     cv2.rectangle(frame, (x1, y1), (x2, y2), color, 2)
+
+
+        current_state = {"pred": pred, "text": status_text}
+        
+        cv2.putText(frame, f"Drivion Status: {status_text}", (30, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.8, color, 2)
+        _, buffer = cv2.imencode('.jpg', frame)
+        yield (b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + buffer.tobytes() + b'\r\n')
+        
+    cap.release()
+
+@app.route('/video_feed')
+def video_feed():
+    return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+if __name__ == '__main__':
+    app.run(debug=True, port=5000)
