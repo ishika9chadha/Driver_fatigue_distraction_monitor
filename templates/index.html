@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drivion - AI Driver Safety System</title>
+    <style>
+        :root { --bg-white: #ffffff; --bg-green: #f0fdf4; --text-main: #0f172a; --text-muted: #475569; --primary-green: #10b981; --primary-green-hover: #059669; --border-color: #e2e8f0; }
+        body { margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg-white); color: var(--text-main); scroll-behavior: smooth; }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 18px 8%; position: fixed; width: 100%; top: 0; z-index: 1000; box-sizing: border-box; transition: all 0.35s ease; background: transparent; border-bottom: 1px solid rgba(255, 255, 255, 0.15); }
+        nav.scrolled { background: rgba(15, 23, 42, 0.92); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); padding: 14px 8%; }
+        .logo-area { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .logo-area img { height: 42px; width: auto; object-fit: contain; border-radius: 8px; }
+        .brand-title { font-size: 1.5rem; font-weight: 700; letter-spacing: 1px; color: #ffffff; }
+        .nav-links { display: flex; gap: 28px; align-items: center; }
+        .nav-links a { color: #f1f5f9; text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: color 0.3s; }
+        nav.scrolled .nav-links a { color: #cbd5e1; }
+        .nav-links a:hover { color: #34d399; }
+        .btn-nav { background: var(--primary-green); color: white !important; padding: 9px 20px; border-radius: 6px; font-weight: 600 !important; }
+        .btn-nav:hover { background: var(--primary-green-hover); }
+        .hero { position: relative; height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; }
+        .hero video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; filter: brightness(0.4); }
+        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.6); z-index: -1; }
+        .hero-content { max-width: 850px; padding: 0 20px; color: #ffffff; }
+        .hero h1 { font-size: 3.8rem; margin-bottom: 20px; font-weight: 700; }
+        .hero h1 span { color: #34d399; }
+        .hero p { font-size: 1.2rem; color: #cbd5e1; margin-bottom: 35px; line-height: 1.6; }
+        .btn-cta { display: inline-block; background: var(--primary-green); color: white; padding: 15px 35px; font-size: 1.1rem; font-weight: 600; text-decoration: none; border-radius: 6px; transition: transform 0.2s, background 0.2s; }
+        .btn-cta:hover { transform: translateY(-2px); background: var(--primary-green-hover); }
+        section { padding: 90px 10%; }
+        .section-title { text-align: center; font-size: 2.3rem; margin-bottom: 12px; font-weight: 700; }
+        .section-subtitle { text-align: center; color: var(--text-muted); font-size: 1.1rem; margin-bottom: 60px; }
+    </style>
+</head>
+<body>
+    <nav id="navbar">
+        <a href="#" class="logo-area">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="Drivion Logo" onerror="this.style.display='none'">
+            <span class="brand-title">DRIVION</span>
+        </a>
+        <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#about">Our Mission</a>
+            <a href="#guide">How It Works</a>
+            <a href="#feedback">Feedback</a>
+            <a href="/monitor" class="btn-nav">Get the App</a>
+        </div>
+    </nav>
+    <header class="hero">
+        <video autoplay muted loop playsinline>
+            <source src="{{ url_for('static', filename='driving.mp4') }}" type="video/mp4">
+        </video>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Surakshit Safar, <span>Behtar Kal</span></h1>
+            <p>An intelligent, non-intrusive AI safety guardian designed for Indian roads. Protecting you and your loved ones from fatigue, drowsiness, and distraction in real time.</p>
+            <a href="/monitor" class="btn-cta">Start Drivion Monitor →</a>
+        </div>
+    </header>
