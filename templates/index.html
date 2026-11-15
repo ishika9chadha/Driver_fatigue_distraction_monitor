@@ -157,3 +157,36 @@
             </form>
         </div>
     </section>
+    <div style="background: var(--primary-green); color: white; text-align: center; padding: 80px 10%;">
+        <h2 style="font-size: 2.5rem; margin-bottom: 15px;">Ready to drive safer?</h2>
+        <p style="font-size: 1.1rem; margin-bottom: 30px; opacity: 0.9;">Join thousands of drivers who trust Drivion to keep them alert on the road.</p>
+        <a href="/monitor" class="btn-cta" style="background: #ffffff; color: var(--primary-green);">Start Drivion Monitor →</a>
+    </div>
+
+    <footer style="background: #0a1128; text-align: center; padding: 50px 20px; color: #94a3b8; border-top: 1px solid #1e293b;">
+        <div style="display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 25px;">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="Drivion Logo" style="height: 38px; border-radius: 8px;" onerror="this.style.display='none'">
+            <span style="color: #ffffff; font-size: 1.4rem; font-weight: 700;">Drivion - Drive Safe</span>
+        </div>
+        <div style="display: flex; justify-content: center; gap: 30px; margin-bottom: 25px; flex-wrap: wrap;">
+            <a href="#features" style="color: #cbd5e1; text-decoration: none;">Features</a>
+            <a href="#about" style="color: #cbd5e1; text-decoration: none;">Our Mission</a>
+            <a href="#guide" style="color: #cbd5e1; text-decoration: none;">How It Works</a>
+            <a href="#feedback" style="color: #cbd5e1; text-decoration: none;">Feedback</a>
+            <a href="/monitor" style="color: #cbd5e1; text-decoration: none;">Monitor App</a>
+        </div>
+        <p style="color: #64748b; font-size: 0.9rem; margin: 0;">&copy; 2026 Drivion - Drive Safe. All rights reserved.</p>
+    </footer>
+
+    <script>
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>
