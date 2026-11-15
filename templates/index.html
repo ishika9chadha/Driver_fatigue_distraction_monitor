@@ -130,4 +130,30 @@
         </div>
     </section>
 
-    
+
+<section id="feedback" style="background: var(--bg-green);">
+        <h2 class="section-title">We Value Your Perspective</h2>
+        <p class="section-subtitle">Help us improve Drivion. Send your feedback and ideas directly to the team.</p>
+        <div style="background: #ffffff; max-width: 600px; margin: 0 auto; padding: 40px; border-radius: 12px; border: 1px solid var(--border-color); box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+            {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                <div style="background: #d1fae5; color: #065f46; padding: 15px; border-radius: 6px; margin-bottom: 20px; text-align: center; font-weight: 500;">{{ messages[0] }}</div>
+              {% endif %}
+            {% endwith %}
+            <form action="/submit_feedback" method="POST">
+                <div style="margin-bottom: 20px; text-align: left;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 500;">Your Name</label>
+                    <input type="text" name="name" placeholder="Enter your name" required style="width: 100%; padding: 13px; border: 1px solid var(--border-color); border-radius: 6px; box-sizing: border-box;">
+                </div>
+                <div style="margin-bottom: 20px; text-align: left;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 500;">Your Email</label>
+                    <input type="email" name="email" placeholder="Enter your email" required style="width: 100%; padding: 13px; border: 1px solid var(--border-color); border-radius: 6px; box-sizing: border-box;">
+                </div>
+                <div style="margin-bottom: 20px; text-align: left;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 500;">Your Feedback / Suggestions</label>
+                    <textarea name="message" rows="4" placeholder="How can we make Drivion better?" required style="width: 100%; padding: 13px; border: 1px solid var(--border-color); border-radius: 6px; box-sizing: border-box;"></textarea>
+                </div>
+                <button type="submit" class="btn-cta" style="width: 100%; border: none; cursor: pointer;">Submit Feedback</button>
+            </form>
+        </div>
+    </section>
