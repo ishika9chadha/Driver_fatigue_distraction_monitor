@@ -31,3 +31,17 @@
             <a href="/" style="background: var(--primary-green); color: white !important; padding: 8px 18px; border-radius: 6px; font-weight: 600; text-decoration: none; font-size: 0.9rem;">← Back to Home</a>
         </div>
     </nav>
+
+<div class="monitor-container">
+        <h1 class="section-title">Live AI Safety Guardian</h1>
+        <p class="section-subtitle">Real-time fatigue, drowsiness & distraction monitoring with gentle audio alerts.</p>
+
+        <div style="background: #ffffff; padding: 30px; border-radius: 16px; border: 1px solid var(--border-color); box-shadow: 0 10px 25px -5px rgba(0,0,0,0.08); position: relative; overflow: hidden; display: inline-block; width: 100%; max-width: 720px; box-sizing: border-box;">
+            <div id="statusBadge" style="display: inline-block; padding: 10px 24px; border-radius: 30px; font-weight: 700; font-size: 1.1rem; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); background: #d1fae5; color: #065f46; border: 1px solid #34d399;">🟢 Status: Safe Driving</div>
+            
+            <div id="videoWrapper" style="position: relative; display: inline-block; width: 100%; border-radius: 12px; overflow: hidden; border: 3px solid var(--border-color); transition: border-color 0.3s;">
+                <div id="alertBanner" style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%); background: rgba(220, 38, 38, 0.9); color: white; padding: 10px 25px; border-radius: 8px; font-weight: bold; font-size: 1.1rem; display: none; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 10; align-items: center; gap: 10px;">⚠️ <span id="alertText">Drowsiness Alert</span></div>
+                <img src="{{ url_for('video_feed') }}" alt="Live Feed" style="width: 100%; height: auto; display: block; border-radius: 10px;">
+            </div>
+        </div>
+    </div>
