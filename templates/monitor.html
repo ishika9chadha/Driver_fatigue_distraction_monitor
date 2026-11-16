@@ -21,3 +21,13 @@
     </style>
 </head>
 
+<body>
+    <nav style="display: flex; justify-content: space-between; align-items: center; padding: 14px 8%; background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 255, 255, 0.1); position: fixed; width: 100%; top: 0; z-index: 1000; box-sizing: border-box;">
+        <a href="/" style="display: flex; align-items: center; gap: 12px; text-decoration: none;">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="Drivion Logo" style="height: 38px; width: auto; object-fit: contain; border-radius: 8px;" onerror="this.style.display='none'">
+            <span style="font-size: 1.4rem; font-weight: 700; color: #ffffff; letter-spacing: 0.5px;">DRIVION</span>
+        </a>
+        <div class="nav-links">
+            <a href="/" style="background: var(--primary-green); color: white !important; padding: 8px 18px; border-radius: 6px; font-weight: 600; text-decoration: none; font-size: 0.9rem;">← Back to Home</a>
+        </div>
+    </nav>
