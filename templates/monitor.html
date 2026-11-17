@@ -68,4 +68,54 @@
         window.addEventListener('click', initAudioContext);
         window.addEventListener('keydown', initAudioContext);
         window.addEventListener('mousemove', initAudioContext, {once: true});
+
+        function startContinuousAlarm() {
+            if (alarmInterval) return;
+
+            try {
+                if (!audioCtx) {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                }
+
+                let beepCount = 0;
+                const maxBeeps = 5;
+
+                function playBeep() {
+                    if (beepCount >= maxBeeps) {
+                        stopContinuousAlarm();
+                        return;
+                    }
+
+                    const osc = audioCtx.createOscillator();
+                    const gainNode = audioCtx.createGain();
+                    
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(587.33, audioCtx.currentTime);
+                    
+                    gainNode.gain.setValueAtTime(0.18, audioCtx.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.7);
+                    
+                    osc.connect(gainNode);
+                    gainNode.connect(audioCtx.destination);
+                    
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.7);
+
+                    beepCount++;
+                }
+
+                playBeep();
+                alarmInterval = setInterval(playBeep, 1000);
+
+            } catch (err) {
+                console.log('Alarm error:', err);
+            }
+        }
+
+        function stopContinuousAlarm() {
+            if (alarmInterval) {
+                clearInterval(alarmInterval);
+                alarmInterval = null;
+            }
+        }
         
