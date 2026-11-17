@@ -45,3 +45,27 @@
             </div>
         </div>
     </div>
+
+    <audio id="alertAudio" src="{{ url_for('static', filename='alarm.wav') }}" preload="auto"></audio>
+
+    <footer style="background: #0a1128; text-align: center; padding: 40px 20px; color: #94a3b8; margin-top: 80px;">
+        <p style="color: #64748b; font-size: 0.9rem; margin: 0;">&copy; 2026 Drivion - Drive Safe. All rights reserved.</p>
+    </footer>
+
+    <script>
+        let lastPred = 0;
+        let audioCtx = null;
+        let alarmInterval = null;
+
+        function initAudioContext() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+        window.addEventListener('click', initAudioContext);
+        window.addEventListener('keydown', initAudioContext);
+        window.addEventListener('mousemove', initAudioContext, {once: true});
+        
