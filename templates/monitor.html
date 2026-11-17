@@ -118,4 +118,55 @@
                 alarmInterval = null;
             }
         }
-        
+
+setInterval(() => {
+            fetch('/status_api')
+                .then(res => res.json())
+                .then(data => {
+                    const badge = document.getElementById('statusBadge');
+                    const wrapper = document.getElementById('videoWrapper');
+                    const banner = document.getElementById('alertBanner');
+                    const bannerText = document.getElementById('alertText');
+
+                    if (data.pred === 1) {
+                        badge.style.background = '#fee2e2';
+                        badge.style.color = '#991b1b';
+                        badge.style.border = '1px solid #f87171';
+                        badge.innerHTML = '🚨 DROWSY WARNING DETECTED!';
+                        wrapper.style.borderColor = '#ef4444';
+                        banner.style.background = 'rgba(220, 38, 38, 0.9)';
+                        bannerText.innerText = 'DROWSY WARNING - WAKE UP!';
+                        banner.style.display = 'flex';
+
+                        if (lastPred !== 1) {
+                            startContinuousAlarm();
+                        }
+                    } else if (data.pred === 2) {
+                        badge.style.background = '#ffedd5';
+                        badge.style.color = '#9a3412';
+                        badge.style.border = '1px solid #fb923c';
+                        badge.innerHTML = '⚠️ DISTRACTION DETECTED!';
+                        wrapper.style.borderColor = '#f97316';
+                        banner.style.background = 'rgba(234, 88, 12, 0.9)';
+                        bannerText.innerText = 'KEEP EYES ON THE ROAD - DISTRACTED!';
+                        banner.style.display = 'flex';
+
+                        if (lastPred !== 2) {
+                            startContinuousAlarm();
+                        }
+                    } else {
+                        badge.style.background = '#d1fae5';
+                        badge.style.color = '#065f46';
+                        badge.style.border = '1px solid #34d399';
+                        badge.innerHTML = '🟢 Status: Safe Driving';
+                        wrapper.style.borderColor = '#34d399';
+                        banner.style.display = 'none';
+                        stopContinuousAlarm();
+                    }
+                    lastPred = data.pred;
+                })
+                .catch(err => console.error(err));
+        }, 350);
+    </script>
+</body>
+</html>        
